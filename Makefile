@@ -9,12 +9,9 @@ GENERATED := $(BASEDIR)/generated
 BLOG := $(GITHUB)/blog
 BLOG_LT := $(BLOG)/ltximg
 
-main_css_version := $(shell stat -c "%Y" $(GITHUB)/css/main.css)
-categories_css_version := $(shell stat -c "%Y" $(GITHUB)/css/categories.css)
-
 XSLT := xsltproc --nodtdattr --nonet --novalid
-XSLT_categories := $(XSLT) --stringparam css_version $(categories_css_version)
-XSLT_page_template := $(XSLT) --stringparam css_version $(main_css_version)
+XSLT_categories := $(XSLT)
+XSLT_page_template := $(XSLT)
 
 .PHONY: site
 
@@ -26,7 +23,10 @@ page-template-xml: $(BASEDIR)/page-template.xsl $(BASEDIR)/page-template-xml.xsl
 diacritics-dashes: $(BASEDIR)/diacritics-dashes.xml $(BASEDIR)/create-diacritics-dashes-st.xsl
 	$(XSLT) $(BASEDIR)/create-diacritics-dashes-st.xsl $(BASEDIR)/diacritics-dashes.xml > $(GENERATED)/diacritics-dashes.xsl
 
-metadata.xml: $(BASEDIR)/description.xsl $(BASEDIR)/index-pages.awk $(BASEDIR)/org-xhtml-keywords.xsl $(BASEDIR)/threads.gxl $(BASEDIR)/thread-pointers.xsl $(BASEDIR)/get-thread-pointer.xsl
+sanitize_xhtml: $(BASEDIR)/html2unicode.sed
+	find $(ORGOUT) -type f -name "*.html" -exec sed -i -f $(BASEDIR)/html2unicode.sed {} \;
+
+metadata.xml: sanitize_xhtml $(BASEDIR)/description.xsl $(BASEDIR)/index-pages.awk $(BASEDIR)/org-xhtml-keywords.xsl $(BASEDIR)/threads.gxl $(BASEDIR)/thread-pointers.xsl $(BASEDIR)/get-thread-pointer.xsl
 	$(XSLT) thread-pointers.xsl threads.gxl > $(GENERATED)/thread-pointers.xml
 	find $(ORGOUT) -maxdepth 1 \( ! -regex '.*/\..*' \) -type f -printf "%f\n" -name "*.html"\
 	| parallel -k --will-cite '$(XSLT) --stringparam file "{}" $(BASEDIR)/org-xhtml-keywords.xsl $(ORGOUT)/"{}"'\
@@ -48,9 +48,9 @@ published_page: metadata.xml $(BASEDIR)/page-template.xsl $(BASEDIR)/indexed-by-
 	| $(XSLT_page_template) $(BASEDIR)/page-template.xsl - > $(GITHUB)/chronological.html
 
 # convert org html export to page formatted for the blog
-blog_posts: metadata.xml $(BASEDIR)/blog-post-main.xsl $(BASEDIR)/page-template.xsl blog_post_images blog_post_formulas
+blog_posts: sanitize_xhtml metadata.xml $(BASEDIR)/blog-post-main.xsl $(BASEDIR)/page-template.xsl blog_post_images blog_post_formulas
 	find $(ORGOUT) -maxdepth 1 \( ! -regex '.*/\..*' \) -type f -printf "%f\n" -name "*.html"\
-	| parallel --will-cite 'sed -f $(BASEDIR)/html2unicode.sed $(ORGOUT)/"{}" | tee $(TMPDIR)/"{}" | $(XSLT) --stringparam file {.} --stringparam metadata $(GENERATED)/metadata.xml $(BASEDIR)/blog-post-main.xsl - | $(XSLT_page_template) --stringparam relative .. $(BASEDIR)/page-template.xsl - > $(BLOG)/{}; touch $(GITHUB)/css/{.}.css'
+	| parallel --will-cite '$(XSLT) --stringparam file {.} --stringparam metadata $(GENERATED)/metadata.xml $(BASEDIR)/blog-post-main.xsl $(ORGOUT)/"{}" | $(XSLT_page_template) --stringparam relative .. $(BASEDIR)/page-template.xsl - > $(BLOG)/{}; touch $(GITHUB)/css/{.}.css'
 	cp $(ORGIN)/*.org $(BLOG)/
 
 blog_post_formulas: $(BASEDIR)/latex-svg-edit.xsl

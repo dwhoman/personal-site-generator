@@ -54,7 +54,7 @@
 	    <h2>Published</h2>
 	    <dl>
 	      <xsl:for-each select="document($metadata)//entry[published/@date &lt; /index/entry[file/text() = $file-html]/published/@date]">
-		<xsl:sort order="descending" />
+		<xsl:sort order="descending" select="published/@date"/>
 		  <xsl:if test="position() = 1">
 		    <dt>Prev:</dt>
 		    <dd class="cloud">
@@ -63,7 +63,7 @@
 		  </xsl:if>
 	      </xsl:for-each>
 	      <xsl:for-each select="document($metadata)//entry[published/@date &gt; /index/entry[file/text() = $file-html]/published/@date]">
-		<xsl:sort order="ascending" />
+		<xsl:sort order="ascending" select="published/@date"/>
 		<xsl:if test="position() = 1">
 		  <dt>Next:</dt>
 		  <dd class="cloud">
@@ -77,7 +77,7 @@
 	    <h2>Updated</h2>
 	    <dl>
 	      <xsl:for-each select="document($metadata)//entry[updated/@date &lt; /index/entry[file/text() = $file-html]/updated/@date]">
-		<xsl:sort order="descending" />
+		<xsl:sort order="descending" select="updated/@date"/>
 		<xsl:if test="position() = 1">
 		  <dt>Prev:</dt>
 		  <dd class="cloud">
@@ -86,7 +86,7 @@
 		</xsl:if>
 	      </xsl:for-each>
 	      <xsl:for-each select="document($metadata)//entry[updated/@date &gt; /index/entry[file/text() = $file-html]/updated/@date]">
-		<xsl:sort order="ascending" />
+		<xsl:sort order="ascending" select="updated/@date"/>
 		<xsl:if test="position() = 1">
 		  <dt>Next:</dt>
 		  <dd class="cloud">
@@ -100,7 +100,7 @@
 	    <h2>Tags</h2>
 	    <ul>
 	      <xsl:for-each select="document($metadata)//entry[file = $file-html]/keywords/keyword">
-		<xsl:sort order="ascending" />
+		<xsl:sort order="ascending" select="translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXZY', 'abcdefghijklmnopqrstuvwxzy')"/>
 		<li><a href="../categories.xhtml#{translate(.,' ','_')}"><xsl:value-of select="." /></a></li>
 	      </xsl:for-each>
 	    </ul>

@@ -3,7 +3,6 @@
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:x="http://www.w3.org/1999/xhtml"
 		exclude-result-prefixes="x">
-  <xsl:param name="css_version" />
   <xsl:param name="relative">.</xsl:param>
   <xsl:output method="html" media-type="text/html" />
   <!-- <script type='text/javascript' async='async' src='{$relative}/js/main.js'/> -->
@@ -19,7 +18,6 @@
 	<xsl:for-each select="//head/meta[not(@charset)]">
 	  <xsl:copy-of select="." />
 	</xsl:for-each>
-	<!-- ?ver={$css_version} -->
 	<link rel='stylesheet' type='text/css' href='{$relative}/css/main.css' />
 	<!-- page specific style sheets -->
 	<xsl:for-each select="//head/link">

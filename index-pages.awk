@@ -3,6 +3,7 @@ function format_date(timestamp, result, cmd) {
     # timestamp = CCYYMMDDhhmm
     # date wants CCYY-MM-DD
     cmd = "date '+%B %d %Y' --date='" substr(timestamp,1,4) "-" substr(timestamp,5,2) "-" substr(timestamp,7,2) "'"
+    result = ""
     cmd | getline result
     close(cmd)
     return result
@@ -32,6 +33,7 @@ function timestamp_to_seconds(timestamp, result, cmd) {
 	cmd = cmd "00"
     }
     cmd = cmd "'"
+    result = ""
     cmd | getline result
     close(cmd)
     return result
@@ -39,6 +41,7 @@ function timestamp_to_seconds(timestamp, result, cmd) {
 
 function seconds_to_timestamp(timestamp, result, cmd) {
     cmd = "date '+%Y%m%d%H%M%S' --date='@" timestamp "'"
+    result = ""
     cmd | getline result
     close(cmd)
     return result
@@ -233,6 +236,7 @@ BEGIN {
     close(command_error)
 
     if(length(errors) == 0) {
+	threads = ""
 	command_val | getline threads
 	close(command_val)
 	print threads

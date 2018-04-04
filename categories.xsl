@@ -3,7 +3,6 @@
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:x="http://www.w3.org/1999/xhtml">
   <xsl:output method="xml" />
-  <xsl:param name="css_version" />
   <xsl:key name="article-by-topic" match="//entry" use="keywords/keyword/@uri" />
   <xsl:template match="/">
     <html>
@@ -12,7 +11,6 @@
 	<meta name="author" content="Devin Homan" />
 	<meta name="description" content="Blog indexed by tag." />
 	<link rel='stylesheet' type='text/css' href='./css/tables.css' />
-	<!-- ?ver={$css_version} -->
 	<link rel='stylesheet' type='text/css' href='./css/categories.css' />
       </head>
       <body>

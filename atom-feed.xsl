@@ -28,7 +28,7 @@
 	  <published><xsl:value-of select="published/@datetime"/></published>
 	  <summary><xsl:value-of select="description" /></summary>
 	  <xsl:for-each select="keywords/keyword">
-	    <xsl:sort select="." />
+	    <xsl:sort select="translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXZY', 'abcdefghijklmnopqrstuvwxzy')"/>
 	    <category term="{text()}" />
 	  </xsl:for-each>
 	</entry>
