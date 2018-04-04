@@ -152,6 +152,13 @@
     </img>
   </xsl:template>
 
+  <!-- remove obsolete table attributes -->
+  <xsl:template match="x:table/@cellspacing" />
+  <xsl:template match="x:table/@cellpadding" />
+  <xsl:template match="x:table/@border" />
+  <xsl:template match="x:table/@frame" />
+  <xsl:template match="x:table/@rules" />
+
   <!-- strip namespaces off of nodes -->
   <xsl:template match="*">
     <xsl:element name="{local-name()}">
