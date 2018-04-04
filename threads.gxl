@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gxl xmlns:xlink="http://www.w3.org/1999/xlink">
+  <graph id="Blog_Post_Threads" edgeids="true" edgemode="directed">
+    <attr name="rankdir">
+      <string>LR</string>
+    </attr>
+    <attr name="shape" kind="node">
+      <string>none</string>
+    </attr>
+    <node id="SQL_Relational_Algebra">
+      <attr name="href">
+	<string>sql-relational-algebra.html</string>
+      </attr>
+    </node>
+    <node id="Transitive_Closure_in_SQL">
+      <attr name="href">
+	<string>sql-transitive-closure.html</string>
+      </attr>
+    </node>
+    <node id="Number_Length_Directed_Graph">
+      <attr name="href">
+        <string>sql-number-length-dag.html</string>
+      </attr>
+    </node>
+    <node id="Why_Gentoo">
+      <attr name="href">
+        <string>why-gentoo.html</string>
+      </attr>
+    </node>
+    <node id="Rolling_My_Own_Static_Site_Generator">
+      <attr name="href">
+        <string>rolling-my-own-static-site-generator.html</string>
+      </attr>
+    </node>
+    <edge id="sql1" from="SQL_Relational_Algebra" to="Transitive_Closure_in_SQL">
+    </edge>
+    <edge id="sql3" from="Transitive_Closure_in_SQL" to="Number_Length_Directed_Graph">
+    </edge>
+  </graph>
+</gxl>
