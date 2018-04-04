@@ -44,14 +44,14 @@
 ** Build System Directory Structure
    My blog build system has the following directory structure.
    - / :: contains all code files
-     - org-files/ :: Org file source
-       - This directory is under version control. Some of the files also exist
-         in another directory called "notes", that contains all my notes, which
-         shares the same Git repository.  Not all of my notes are blog posts and
-         not all of my blog posts are notes.
-	 - ltximg/ :: directory automatically created by Org mode to store LaTeX
-	 - [blog-file-name]/ :: contains images and other data corresponding to
-                         the Org file
+     - org-files/ :: Org file source.  This directory is under version
+                     control. Some of the files also exist in another directory
+                     called "notes", that contains all my notes, which shares
+                     the same Git repository.  Not all of my notes are blog
+                     posts and not all of my blog posts are notes.
+       - ltximg/ :: directory automatically created by Org mode to store LaTeX
+       - [blog-file-name]/ :: contains images and other data corresponding to
+                       the Org file
      - org-html/ :: output location for Org HTML export.
      - tmp/ :: temporary files mainly used for checking intermediate output
      - generated/ :: automatically generated files referenced by multiple targets
