@@ -22,7 +22,7 @@
       <body>
 	<aside id="related-posts">
 	  <xsl:if test="document($metadata)//entry[file/text() = $file-html]/*[name()='prev' or name()='next']">
-	    <nav id="blog-threads">
+	    <nav id="blog-threads-local">
 	      <h2>Thread</h2>
 	      <dl>
 		<xsl:if test="document($metadata)//entry[file/text() = $file-html]/prev">
@@ -50,7 +50,7 @@
 	      </dl>
 	    </nav>
 	  </xsl:if>
-	  <nav id="blog-published">
+	  <nav id="blog-published-local">
 	    <h2>Published</h2>
 	    <dl>
 	      <xsl:for-each select="document($metadata)//entry[published/@date &lt; /index/entry[file/text() = $file-html]/published/@date]">
@@ -73,7 +73,7 @@
 	      </xsl:for-each>
 	    </dl>
 	  </nav>
-	  <nav id="blog-updated">
+	  <nav id="blog-updated-local">
 	    <h2>Updated</h2>
 	    <dl>
 	      <xsl:for-each select="document($metadata)//entry[updated/@date &lt; /index/entry[file/text() = $file-html]/updated/@date]">

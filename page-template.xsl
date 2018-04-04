@@ -11,7 +11,7 @@
     <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html&gt;</xsl:text>
     <html lang="en">
       <head>
-	<meta charset="utf-8" />
+	<!-- meta set by xsltproc -->
 	<link rel="alternate" type="application/atom+xml" href="{$relative}/feed.atom" />
 	<link rel="shortcut icon" href="{$relative}/graphics/logo3.svg" />
 	<link rel="preload" href="{$relative}/fonts/genoa_italic_filtered.woff" as="font" type="font/woff" />
